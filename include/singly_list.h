@@ -6,12 +6,22 @@ typedef struct SinglyNode {
     struct SinglyNode *next;
 } SinglyNode;
 
-SinglyNode *add_node(void *data, SinglyNode **head);
-SinglyNode *get_node(int index, SinglyNode *head);
-SinglyNode *get_last_node(SinglyNode *head);
-SinglyNode *insert_node(int index, void *data, SinglyNode **head);
-SinglyNode *append_node(void *data, SinglyNode **head);
-void remove_node(int index, SinglyNode **head);
-void free_list(SinglyNode *head);
+typedef struct {
+    SinglyNode *head;
+    SinglyNode *tail;
+    int count;
+} SinglyList;
+
+SinglyList *create_list();
+SinglyNode *insert_node(int index, void *data, SinglyList *list);
+SinglyNode *get_node(int index, SinglyList *list);
+SinglyNode *push_head(void *data, SinglyList *list);
+SinglyNode *push_tail(void *data, SinglyList *list);
+void remove_node(int index, SinglyList *list);
+void pop_head(SinglyList *list);
+void pop_tail(SinglyList *list);
+void clear_list(SinglyList *list);
+void free_list(SinglyList *list);
+void reverse_list(SinglyList *list);
 
 #endif
