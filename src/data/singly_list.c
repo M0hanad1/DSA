@@ -18,7 +18,7 @@ SinglyList *create_list() {
 
 SinglyNode *insert_node(int index, void *data, SinglyList *list) {
     if (!list) return NULL;
-    if (index == 0) return push_head(data, list);
+    if (!index) return push_head(data, list);
     if (index < 0 || index > list->count) return NULL;
     if (index == list->count) return push_tail(data, list);
 
@@ -92,7 +92,7 @@ void pop_tail(SinglyList *list) {
 void remove_node(int index, SinglyList *list) {
     if (!list || !list->head) return;
     if (index < 0 || index >= list->count) return;
-    if (index == 0) return pop_head(list);
+    if (!index) return pop_head(list);
 
     SinglyNode *node_prev = get_node(index - 1, list);
     if (node_prev && node_prev->next) {
