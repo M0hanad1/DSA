@@ -45,13 +45,15 @@ void array_stack() {
     push_stack(2, stack);
     push_stack(3, stack);
     push_stack(4, stack);
+    printf("Empty: %d\n", isempty_stack(stack));
     printf("Capacity: %d\n", stack->capacity);
     push_stack(0, stack);
     printf("Capacity: %d\n", stack->capacity);
     pop_stack(stack);
 
-    for (int i = peek_stack(stack); stack->count; pop_stack(stack), i = peek_stack(stack)) printf("=====\n| %d |\n", i);
+    for (int i = peek_stack(stack); stack->top > -1; pop_stack(stack), i = peek_stack(stack)) printf("=====\n| %d |\n", i);
     printf("=====\n");
+    printf("Empty: %d\n", isempty_stack(stack));
     printf("Capacity: %d\n", stack->capacity);
 
     free_stack(stack);

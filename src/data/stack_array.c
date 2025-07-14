@@ -17,7 +17,7 @@ Stack *create_stack() {
 
     new_stack->array = NULL;
     new_stack->capacity = DEFAULT_CAPACITY;
-    new_stack->count = 0;
+    new_stack->top = -1;
 
     if (!realloc_stack(new_stack, new_stack->capacity)) {
         free(new_stack);
@@ -28,25 +28,24 @@ Stack *create_stack() {
 
 void push_stack(int data, Stack *stack) {
     if (!stack) return;
-    if (stack->count == stack->capacity) {
+    if (stack->top + 1 == stack->capacity) {
         if (!realloc_stack(stack, stack->capacity * 2)) return;
         stack->capacity *= 2;
     }
-    stack->array[stack->count] = data;
-    stack->count++;
+    stack->array[++stack->top] = data;
 }
 
 void pop_stack(Stack *stack) {
-    if (!stack || !stack->count) return;
-    stack->count--;
-    if (stack->capacity > DEFAULT_CAPACITY && stack->count <= stack->capacity / 4) {
+    if (!stack || stack->top == -1) return;
+    stack->top--;
+    if (stack->capacity > DEFAULT_CAPACITY && stack->top <= stack->capacity / 4) {
         if (realloc_stack(stack, stack->capacity / 2)) stack->capacity /= 2;
     }
 }
 
 int peek_stack(Stack *stack) {
-    if (!stack || !stack->count) return -1;
-    return stack->array[stack->count - 1];
+    if (!stack || stack->top == -1) return -1;
+    return stack->array[stack->top];
 }
 
 void free_stack(Stack *stack) {
@@ -54,3 +53,5 @@ void free_stack(Stack *stack) {
     free(stack->array);
     free(stack);
 }
+
+int isempty_stack(Stack *stack) { return stack->top == -1 ? 1 : 0; }
