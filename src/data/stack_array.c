@@ -5,7 +5,7 @@
 
 static void *realloc_stack(Stack *stack, int new_capacity) {
     if (!stack) return NULL;
-    void *elements_array = realloc(stack->array, new_capacity * sizeof(int));
+    void *elements_array = realloc(stack->array, new_capacity * sizeof(char));
     if (!elements_array) return NULL;
     stack->array = elements_array;
     return elements_array;
