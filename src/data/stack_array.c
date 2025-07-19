@@ -43,15 +43,14 @@ void pop_stack(Stack *stack) {
     }
 }
 
-int peek_stack(Stack *stack) {
-    if (!stack || stack->top == -1) return -1;
-    return stack->array[stack->top];
-}
+int peek_stack(Stack *stack) { return stack && stack->top > -1 ? stack->array[stack->top] : -1; }
 
 void free_stack(Stack *stack) {
     if (!stack) return;
     free(stack->array);
+    stack->capacity = 0;
+    stack->top = -1;
     free(stack);
 }
 
-int isempty_stack(Stack *stack) { return stack->top == -1 ? 1 : 0; }
+int isempty_stack(Stack *stack) { return stack && stack->top > -1 ? 0 : 1; }

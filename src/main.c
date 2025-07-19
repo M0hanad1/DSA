@@ -3,6 +3,7 @@
 
 #include "singly_list.h"
 #include "stack_array.h"
+#include "stack_linked.h"
 
 void print_recursion(SinglyNode *head) {
     if (!head) {
@@ -39,7 +40,7 @@ void linked_list() {
     free_list(list);
 }
 
-void array_stack() {
+void stack_array() {
     Stack *stack = create_stack();
     push_stack(1, stack);
     push_stack(2, stack);
@@ -51,15 +52,41 @@ void array_stack() {
     printf("Capacity: %d\n", stack->capacity);
     pop_stack(stack);
 
-    for (int i = peek_stack(stack); stack->top > -1; pop_stack(stack), i = peek_stack(stack)) printf("=====\n| %d |\n", i);
+    for (int i = peek_stack(stack); !isempty_stack(stack); pop_stack(stack), i = peek_stack(stack)) {
+        printf("=====\n| %d |\n", i);
+    }
+
     printf("=====\n");
     printf("Empty: %d\n", isempty_stack(stack));
     printf("Capacity: %d\n", stack->capacity);
-
     free_stack(stack);
 }
 
+void stack_linked() {
+    StackLinked *stack = create_stack_linked();
+    push_stack_linked("1th", stack);
+    push_stack_linked("2th", stack);
+    push_stack_linked("3th", stack);
+    push_stack_linked("4th", stack);
+    printf("Empty: %d\n", isempty_stack_linked(stack));
+    push_stack_linked("TEST", stack);
+    pop_stack_linked(stack);
+
+    for (void *i = stack->top->data; !isempty_stack_linked(stack); pop_stack_linked(stack), i = peek_stack_linked(stack)) {
+        printf("=======\n| %s |\n", (char *)i);
+    }
+
+    printf("=======\n");
+    printf("Empty: %d\n", isempty_stack_linked(stack));
+    free_stack_linked(stack);
+}
+
 int main() {
-    array_stack();
+    printf("=====================\n");
     linked_list();
+    printf("=====================\n");
+    stack_array();
+    printf("=====================\n");
+    stack_linked();
+    printf("=====================\n");
 }
