@@ -44,4 +44,4 @@ void free_stack_linked(StackLinked *stack) {
 
 void *peek_stack_linked(StackLinked *stack) { return stack && stack->top ? stack->top->data : NULL; }
 
-int isempty_stack_linked(StackLinked *stack) { return stack && stack->top ? 0 : 1; }
+char isempty_stack_linked(StackLinked *stack) { return stack && stack->top ? 0 : 1; }

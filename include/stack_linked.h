@@ -13,6 +13,6 @@ void push_stack_linked(void *data, StackLinked *stack);
 void pop_stack_linked(StackLinked *stack);
 void free_stack_linked(StackLinked *stack);
 void *peek_stack_linked(StackLinked *stack);
-int isempty_stack_linked(StackLinked *stack);
+char isempty_stack_linked(StackLinked *stack);
 
 #endif
