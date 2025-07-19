@@ -1,5 +1,6 @@
 #include "stack_array.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -46,8 +47,6 @@ void pop_stack(Stack *stack) {
     }
 }
 
-void *peek_stack(Stack *stack) { return stack && stack->top > -1 ? stack->array[stack->top] : NULL; }
-
 void free_stack(Stack *stack) {
     if (!stack) return;
     stack->capacity = 0;
@@ -56,4 +55,5 @@ void free_stack(Stack *stack) {
     free(stack);
 }
 
-char isempty_stack(Stack *stack) { return stack && stack->top > -1 ? 0 : 1; }
+void *peek_stack(Stack *stack) { return stack && stack->top > -1 ? stack->array[stack->top] : NULL; }
+bool isempty_stack(Stack *stack) { return stack && stack->top > -1 ? false : true; }

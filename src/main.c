@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -87,10 +88,10 @@ void stack_linked() {
     free_stack_linked(stack);
 }
 
-char valid_parentheses(char *exp) {
-    if (!exp) return 0;
+bool valid_parentheses(char *exp) {
+    if (!exp) return false;
     Stack *stack = create_stack();
-    if (!stack) return 0;
+    if (!stack) return false;
 
     for (int i = 0; exp[i] != '\0'; i++) {
         if (exp[i] == '(' || exp[i] == '[' || exp[i] == '{') {
@@ -98,22 +99,22 @@ char valid_parentheses(char *exp) {
         } else if (exp[i] == ')' || exp[i] == ']' || exp[i] == '}') {
             if (isempty_stack(stack)) {
                 free_stack(stack);
-                return 0;
+                return false;
             }
             char stack_top = *(char *)peek_stack(stack);
             if ((stack_top == '(' && exp[i] != ')') ||
                 (stack_top == '[' && exp[i] != ']') ||
                 (stack_top == '{' && exp[i] != '}')) {
                 free_stack(stack);
-                return 0;
+                return false;
             }
             pop_stack(stack);
         }
     }
 
-    char empty = isempty_stack(stack);
+    bool empty = isempty_stack(stack);
     free_stack(stack);
-    return empty ? 1 : 0;
+    return empty ? true : false;
 }
 
 void queue_array() {

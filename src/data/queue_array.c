@@ -1,5 +1,6 @@
 #include "queue_array.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -60,4 +61,4 @@ void free_queue(Queue *queue) {
 }
 
 void *peek_queue(Queue *queue) { return queue && queue->front <= queue->rear ? queue->array[queue->front] : NULL; }
-char isempty_queue(Queue *queue) { return queue && queue->front <= queue->rear ? 0 : 1; }
+bool isempty_queue(Queue *queue) { return queue && queue->front <= queue->rear ? false : true; }

@@ -3,6 +3,8 @@
 
 #define DEFAULT_CAPACITY 4
 
+#include <stdbool.h>
+
 typedef struct {
     void **array;
     int capacity;
@@ -14,6 +16,6 @@ void push_stack(void *data, Stack *stack);
 void pop_stack(Stack *stack);
 void free_stack(Stack *stack);
 void *peek_stack(Stack *stack);
-char isempty_stack(Stack *stack);
+bool isempty_stack(Stack *stack);
 
 #endif

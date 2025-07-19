@@ -1,5 +1,6 @@
 #include "stack_linked.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -43,5 +44,4 @@ void free_stack_linked(StackLinked *stack) {
 }
 
 void *peek_stack_linked(StackLinked *stack) { return stack && stack->top ? stack->top->data : NULL; }
-
-char isempty_stack_linked(StackLinked *stack) { return stack && stack->top ? 0 : 1; }
+bool isempty_stack_linked(StackLinked *stack) { return stack && stack->top ? false : true; }

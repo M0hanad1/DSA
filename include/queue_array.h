@@ -3,6 +3,8 @@
 
 #define DEFAULT_CAPACITY 4
 
+#include <stdbool.h>
+
 typedef struct {
     void **array;
     int capacity;
@@ -15,6 +17,6 @@ void enqueue(void *data, Queue *queue);
 void dequeue(Queue *queue);
 void free_queue(Queue *queue);
 void *peek_queue(Queue *queue);
-char isempty_queue(Queue *queue);
+bool isempty_queue(Queue *queue);
 
 #endif
