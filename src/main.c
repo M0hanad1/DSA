@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "queue_array.h"
 #include "singly_list.h"
 #include "stack_array.h"
 #include "stack_linked.h"
@@ -42,18 +43,23 @@ void linked_list() {
 
 void stack_array() {
     Stack *stack = create_stack();
-    push_stack(1, stack);
-    push_stack(2, stack);
-    push_stack(3, stack);
-    push_stack(4, stack);
+    int f = 1, s = 2, t = 3, fo = 4;
+
+    push_stack(&f, stack);
+    push_stack(&s, stack);
+    push_stack(&t, stack);
+    push_stack(&fo, stack);
+
     printf("Empty: %d\n", isempty_stack(stack));
     printf("Capacity: %d\n", stack->capacity);
-    push_stack(0, stack);
+    push_stack("TEST", stack);
     printf("Capacity: %d\n", stack->capacity);
     pop_stack(stack);
 
-    for (int i = peek_stack(stack); !isempty_stack(stack); pop_stack(stack), i = peek_stack(stack)) {
-        printf("=====\n| %d |\n", i);
+    while (!isempty_stack(stack)) {
+        void *i = peek_stack(stack);
+        printf("=====\n| %d |\n", *(int *)i);
+        pop_stack(stack);
     }
 
     printf("=====\n");
@@ -88,13 +94,13 @@ char valid_parentheses(char *exp) {
 
     for (int i = 0; exp[i] != '\0'; i++) {
         if (exp[i] == '(' || exp[i] == '[' || exp[i] == '{') {
-            push_stack(exp[i], stack);
+            push_stack(&exp[i], stack);
         } else if (exp[i] == ')' || exp[i] == ']' || exp[i] == '}') {
             if (isempty_stack(stack)) {
                 free_stack(stack);
                 return 0;
             }
-            char stack_top = peek_stack(stack);
+            char stack_top = *(char *)peek_stack(stack);
             if ((stack_top == '(' && exp[i] != ')') ||
                 (stack_top == '[' && exp[i] != ']') ||
                 (stack_top == '{' && exp[i] != '}')) {
@@ -110,6 +116,32 @@ char valid_parentheses(char *exp) {
     return empty ? 1 : 0;
 }
 
+void queue_array() {
+    Queue *queue = create_queue();
+    float f = 1.1, s = 2.2, t = 3.3, fo = 4.4;
+
+    enqueue("TEST", queue);
+    enqueue(&f, queue);
+    enqueue(&s, queue);
+    enqueue(&t, queue);
+    enqueue(&fo, queue);
+
+    printf("Empty: %d\n", isempty_queue(queue));
+    printf("Capacity: %d\n", queue->capacity);
+    dequeue(queue);
+
+    while (!isempty_queue(queue)) {
+        void *i = peek_queue(queue);
+        printf("=======\n| %g |\n", *(float *)i);
+        dequeue(queue);
+    }
+
+    printf("=======\n");
+    printf("Empty: %d\n", isempty_queue(queue));
+    printf("Capacity: %d\n", queue->capacity);
+    free_queue(queue);
+}
+
 int main() {
     printf("=====================\n");
     linked_list();
@@ -123,5 +155,7 @@ int main() {
     printf("%d\n", valid_parentheses("("));
     printf("%d\n", valid_parentheses("{[}]"));
     printf("%d\n", valid_parentheses("[{()}]"));
+    printf("=====================\n");
+    queue_array();
     printf("=====================\n");
 }
