@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "queue_array.h"
+#include "queue_linked.h"
 #include "singly_list.h"
 #include "stack_array.h"
 #include "stack_linked.h"
@@ -143,6 +144,25 @@ void queue_array() {
     free_queue(queue);
 }
 
+void queue_linked() {
+    QueueLinked *queue = create_queue_linked();
+    enqueue_linked("TEST", queue);
+    enqueue_linked("A", queue);
+    enqueue_linked("B", queue);
+    enqueue_linked("C", queue);
+    enqueue_linked("D", queue);
+    printf("Empty: %d\n", isempty_queue_linked(queue));
+    dequeue_linked(queue);
+
+    for (void *i = queue->front->data; !isempty_queue_linked(queue); dequeue_linked(queue), i = peek_queue_linked(queue)) {
+        printf("=====\n| %s |\n", (char *)i);
+    }
+
+    printf("=====\n");
+    printf("Empty: %d\n", isempty_queue_linked(queue));
+    free_queue_linked(queue);
+}
+
 int main() {
     printf("=====================\n");
     linked_list();
@@ -158,5 +178,7 @@ int main() {
     printf("%d\n", valid_parentheses("[{()}]"));
     printf("=====================\n");
     queue_array();
+    printf("=====================\n");
+    queue_linked();
     printf("=====================\n");
 }

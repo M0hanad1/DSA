@@ -13,13 +13,11 @@ StackLinked *create_stack_linked() {
         return NULL;
     }
 
-    SinglyList *list = create_list();
-    if (!list) {
+    stack->list = create_list();
+    if (!stack->list) {
         free(stack);
         return NULL;
     }
-
-    stack->list = list;
     stack->top = NULL;
     return stack;
 }
@@ -39,6 +37,7 @@ void pop_stack_linked(StackLinked *stack) {
 void free_stack_linked(StackLinked *stack) {
     if (!stack || !stack->list) return;
     free_list(stack->list);
+    stack->list = NULL;
     stack->top = NULL;
     free(stack);
 }
