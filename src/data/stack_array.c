@@ -50,10 +50,7 @@ void clear_stack(Stack *stack) {
     free(stack->array);
     stack->capacity = DEFAULT_STACK_CAPACITY;
     stack->top = -1;
-    if (!(stack->array = malloc(stack->capacity * sizeof(void *)))) {
-        printf("Failed to allocate memory\n");
-        return;
-    }
+    stack->array = realloc_array(NULL, stack->capacity);
 }
 
 void free_stack(Stack *stack) {

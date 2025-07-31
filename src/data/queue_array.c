@@ -55,18 +55,16 @@ void clear_queue(Queue *queue) {
     queue->capacity = DEFAULT_QUEUE_CAPACITY;
     queue->front = 0;
     queue->rear = -1;
-    if (!(queue->array = malloc(queue->capacity * sizeof(void *)))) {
-        printf("Failed to allocate memory\n");
-        return;
-    }
+    queue->array = realloc_array(NULL, queue->capacity);
 }
 
 void free_queue(Queue *queue) {
     if (!queue) return;
+    free(queue->array);
+    queue->array = NULL;
     queue->capacity = 0;
     queue->front = 0;
     queue->rear = -1;
-    free(queue->array);
     free(queue);
 }
 
