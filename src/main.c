@@ -18,6 +18,8 @@ void print_recursion(SinglyNode *head) {
 }
 
 void linked_list() {
+    printf("LINKED LIST\n\n");
+
     SinglyList *list = create_list();
     push_head("first", list);
     push_head("second", list);
@@ -44,6 +46,8 @@ void linked_list() {
 }
 
 void stack_array() {
+    printf("STACK ARRAY\n\n");
+
     Stack *stack = create_stack();
     int f = 1, s = 2, t = 3, fo = 4;
 
@@ -63,14 +67,22 @@ void stack_array() {
         printf("=====\n| %d |\n", *(int *)i);
         pop_stack(stack);
     }
-
     printf("=====\n");
+
+    push_stack(&f, stack);
+    push_stack(&s, stack);
+    push_stack(&t, stack);
+    push_stack(&fo, stack);
+    clear_stack(stack);
+
     printf("Empty: %d\n", isempty_stack(stack));
     printf("Capacity: %d\n", stack->capacity);
     free_stack(stack);
 }
 
 void stack_linked() {
+    printf("STACK LINKED\n\n");
+
     StackLinked *stack = create_stack_linked();
     push_stack_linked("1th", stack);
     push_stack_linked("2th", stack);
@@ -83,8 +95,14 @@ void stack_linked() {
     for (void *i = stack->top->data; !isempty_stack_linked(stack); pop_stack_linked(stack), i = peek_stack_linked(stack)) {
         printf("=======\n| %s |\n", (char *)i);
     }
-
     printf("=======\n");
+
+    push_stack_linked("1th", stack);
+    push_stack_linked("2th", stack);
+    push_stack_linked("3th", stack);
+    push_stack_linked("4th", stack);
+    clear_stack_linked(stack);
+
     printf("Empty: %d\n", isempty_stack_linked(stack));
     free_stack_linked(stack);
 }
@@ -119,6 +137,8 @@ bool valid_parentheses(char *exp) {
 }
 
 void queue_array() {
+    printf("QUEUE ARRAY\n\n");
+
     Queue *queue = create_queue();
     float f = 1.1, s = 2.2, t = 3.3, fo = 4.4;
 
@@ -134,17 +154,25 @@ void queue_array() {
 
     while (!isempty_queue(queue)) {
         void *i = peek_queue(queue);
-        printf("=======\n| %g |\n", *(float *)i);
+        printf("| %g ", *(float *)i);
         dequeue(queue);
     }
+    printf("|\n");
 
-    printf("=======\n");
+    enqueue(&f, queue);
+    enqueue(&s, queue);
+    enqueue(&t, queue);
+    enqueue(&fo, queue);
+    clear_queue(queue);
+
     printf("Empty: %d\n", isempty_queue(queue));
     printf("Capacity: %d\n", queue->capacity);
     free_queue(queue);
 }
 
 void queue_linked() {
+    printf("QUEUE LINKED\n\n");
+
     QueueLinked *queue = create_queue_linked();
     enqueue_linked("TEST", queue);
     enqueue_linked("A", queue);
@@ -155,10 +183,16 @@ void queue_linked() {
     dequeue_linked(queue);
 
     for (void *i = queue->front->data; !isempty_queue_linked(queue); dequeue_linked(queue), i = peek_queue_linked(queue)) {
-        printf("=====\n| %s |\n", (char *)i);
+        printf("| %s ", (char *)i);
     }
+    printf("|\n");
 
-    printf("=====\n");
+    enqueue_linked("A", queue);
+    enqueue_linked("B", queue);
+    enqueue_linked("C", queue);
+    enqueue_linked("D", queue);
+    clear_queue_linked(queue);
+
     printf("Empty: %d\n", isempty_queue_linked(queue));
     free_queue_linked(queue);
 }

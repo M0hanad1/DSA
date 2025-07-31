@@ -12,8 +12,7 @@ QueueLinked *create_queue_linked() {
         printf("Failed to allocate memory for queue\n");
         return NULL;
     }
-    queue->list = create_list();
-    if (!queue->list) {
+    if (!(queue->list = create_list())) {
         free(queue);
         return NULL;
     }
@@ -36,12 +35,17 @@ void dequeue_linked(QueueLinked *queue) {
     queue->rear = queue->list->tail;
 }
 
-void free_queue_linked(QueueLinked *queue) {
-    if (!queue || !queue->list) return;
+void clear_queue_linked(QueueLinked *queue) {
+    if (!queue) return;
     free_list(queue->list);
     queue->list = NULL;
     queue->front = NULL;
     queue->rear = NULL;
+}
+
+void free_queue_linked(QueueLinked *queue) {
+    if (!queue) return;
+    clear_queue_linked(queue);
     free(queue);
 }
 

@@ -13,15 +13,13 @@ Queue *create_queue() {
         return NULL;
     }
 
-    queue->capacity = DEFAULT_CAPACITY;
+    queue->capacity = DEFAULT_QUEUE_CAPACITY;
     queue->front = 0;
     queue->rear = -1;
-    queue->array = malloc(queue->capacity * sizeof(void *));
-    if (!queue->array) {
+    if (!(queue->array = realloc_array(NULL, queue->capacity))) {
         free(queue);
         return NULL;
     }
-
     return queue;
 }
 
@@ -39,7 +37,7 @@ void enqueue(void *data, Queue *queue) {
 void dequeue(Queue *queue) {
     if (!queue || queue->front > queue->rear) return;
     queue->front++;
-    if (queue->capacity > DEFAULT_CAPACITY && queue->rear - queue->front < queue->capacity / 4) {
+    if (queue->capacity > DEFAULT_QUEUE_CAPACITY && queue->rear - queue->front < queue->capacity / 4) {
         for (int i = 0; i < queue->rear - queue->front + 1; i++) queue->array[i] = queue->array[queue->front + i];
         queue->rear -= queue->front;
         queue->front = 0;
@@ -48,6 +46,18 @@ void dequeue(Queue *queue) {
             queue->array = new_array;
             queue->capacity /= 2;
         }
+    }
+}
+
+void clear_queue(Queue *queue) {
+    if (!queue) return;
+    free(queue->array);
+    queue->capacity = DEFAULT_QUEUE_CAPACITY;
+    queue->front = 0;
+    queue->rear = -1;
+    if (!(queue->array = malloc(queue->capacity * sizeof(void *)))) {
+        printf("Failed to allocate memory\n");
+        return;
     }
 }
 

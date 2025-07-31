@@ -13,8 +13,7 @@ StackLinked *create_stack_linked() {
         return NULL;
     }
 
-    stack->list = create_list();
-    if (!stack->list) {
+    if (!(stack->list = create_list())) {
         free(stack);
         return NULL;
     }
@@ -34,11 +33,16 @@ void pop_stack_linked(StackLinked *stack) {
     stack->top = stack->list->head;
 }
 
-void free_stack_linked(StackLinked *stack) {
-    if (!stack || !stack->list) return;
+void clear_stack_linked(StackLinked *stack) {
+    if (!stack) return;
     free_list(stack->list);
     stack->list = NULL;
     stack->top = NULL;
+}
+
+void free_stack_linked(StackLinked *stack) {
+    if (!stack) return;
+    clear_stack_linked(stack);
     free(stack);
 }
 
