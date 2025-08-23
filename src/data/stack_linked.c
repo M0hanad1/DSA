@@ -44,6 +44,7 @@ void free_stack_linked(StackLinked *stack) {
     if (!stack) return;
     clear_stack_linked(stack);
     free(stack);
+    stack = NULL;
 }
 
 void *peek_stack_linked(StackLinked *stack) { return stack && stack->top ? stack->top->data : NULL; }

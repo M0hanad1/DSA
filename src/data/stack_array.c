@@ -60,6 +60,7 @@ void free_stack(Stack *stack) {
     stack->capacity = 0;
     stack->top = -1;
     free(stack);
+    stack = NULL;
 }
 
 void *peek_stack(Stack *stack) { return stack && stack->top > -1 ? stack->array[stack->top] : NULL; }

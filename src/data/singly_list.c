@@ -121,6 +121,8 @@ void clear_list(SinglyList *list) {
         list->head = temp->next;
         free(temp);
     }
+    list->head = NULL;
+    list->tail = NULL;
     list->count = 0;
 }
 
@@ -128,6 +130,7 @@ void free_list(SinglyList *list) {
     if (!list) return;
     clear_list(list);
     free(list);
+    list = NULL;
 }
 
 void reverse_list(SinglyList *list) {

@@ -7,6 +7,7 @@
 #include "singly_list.h"
 #include "stack_array.h"
 #include "stack_linked.h"
+#include "vector.h"
 
 void print_recursion(SinglyNode *head) {
     if (!head) {
@@ -15,6 +16,43 @@ void print_recursion(SinglyNode *head) {
     }
     printf("%s -> ", (char *)head->data);
     return print_recursion(head->next);
+}
+
+void vector_array() {
+    printf("VECTOR ARRAY\n\n");
+
+    Vector *vector = create_vector();
+    push_vector(vector, "1");
+    push_vector(vector, "2");
+    push_vector(vector, "3");
+    printf("Cap: %zu\n[", vector->capacity);
+    for (size_t i = 0; i < vector->length; i++) printf("%s, ", (char *)vector->array[i]);
+    printf("]\n");
+
+    pop_vector(vector);
+    printf("Cap: %zu\n[", vector->capacity);
+    for (size_t i = 0; i < vector->length; i++) printf("%s, ", (char *)vector->array[i]);
+    printf("]\n");
+
+    insert_vector(vector, "0", 0);
+    insert_vector(vector, "2.5", 3);
+    insert_vector(vector, "3", 4);
+    insert_vector(vector, "4", 5);
+    printf("Cap: %zu\n[", vector->capacity);
+    for (size_t i = 0; i < vector->length; i++) printf("%s, ", (char *)vector->array[i]);
+    printf("]\n");
+
+    remove_vector(vector, 5);
+    remove_vector(vector, 3);
+    remove_vector(vector, 2);
+    remove_vector(vector, 0);
+    printf("Cap: %zu\n[", vector->capacity);
+    for (size_t i = 0; i < vector->length; i++) printf("%s, ", (char *)vector->array[i]);
+    printf("]\n");
+
+    printf("Empty: %d\n", isempty_vector(vector));
+    printf("Capacity: %zu\n", vector->capacity);
+    free_vector(vector);
 }
 
 void linked_list() {
@@ -198,6 +236,8 @@ void queue_linked() {
 }
 
 int main() {
+    printf("=====================\n");
+    vector_array();
     printf("=====================\n");
     linked_list();
     printf("=====================\n");

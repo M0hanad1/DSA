@@ -47,6 +47,7 @@ void free_queue_linked(QueueLinked *queue) {
     if (!queue) return;
     clear_queue_linked(queue);
     free(queue);
+    queue = NULL;
 }
 
 void *peek_queue_linked(QueueLinked *queue) { return queue && queue->front ? queue->front->data : NULL; }
