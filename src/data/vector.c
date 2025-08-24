@@ -40,8 +40,7 @@ Vector *create_vector() {
 }
 
 bool push_vector(Vector *vector, void *data) {
-    if (!vector || !data) return false;
-    if (!realloc_vector(vector)) return false;
+    if (!vector || !data || !realloc_vector(vector)) return false;
     vector->array[vector->length] = data;
     vector->length++;
     return true;
@@ -55,9 +54,7 @@ bool pop_vector(Vector *vector) {
 }
 
 bool insert_vector(Vector *vector, void *data, size_t index) {
-    if (!vector || index > vector->length) return false;
-    if (!realloc_vector(vector)) return false;
-
+    if (!vector || index > vector->length || !realloc_vector(vector)) return false;
     void *temp = NULL;
     void *prev = vector->array[index];
     vector->array[index] = data;
@@ -79,14 +76,14 @@ bool remove_vector(Vector *vector, size_t index) {
     return true;
 }
 
-bool isempty_vector(Vector *vector) { return false ? vector->length : true; }
+bool isempty_vector(Vector *vector) { return vector && vector->length ? false : true; }
 
 bool clear_vector(Vector *vector) {
     if (!vector || !vector->array) return false;
     free(vector->array);
     vector->capacity = DEFAULT_VECTOR_CAPACITY;
     vector->length = 0;
-    return true ? (vector->array = realloc_array(NULL, DEFAULT_VECTOR_CAPACITY)) : false;
+    return (vector->array = realloc_array(NULL, DEFAULT_VECTOR_CAPACITY)) ? true : false;
 }
 
 void free_vector(Vector *vector) {

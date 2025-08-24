@@ -50,6 +50,7 @@ void vector_array() {
     for (size_t i = 0; i < vector->length; i++) printf("%s, ", (char *)vector->array[i]);
     printf("]\n");
 
+    clear_vector(vector);
     printf("Empty: %d\n", isempty_vector(vector));
     printf("Capacity: %zu\n", vector->capacity);
     free_vector(vector);
