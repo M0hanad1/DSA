@@ -25,6 +25,7 @@ void vector_array() {
     push_vector(vector, "1");
     push_vector(vector, "2");
     push_vector(vector, "3");
+    printf("Empty: %d\n", isempty_vector(vector));
     printf("Cap: %zu\n[", vector->capacity);
     for (size_t i = 0; i < vector->length; i++) printf("%s, ", (char *)vector->array[i]);
     printf("]\n");
@@ -150,29 +151,27 @@ bool valid_parentheses(char *exp) {
     if (!exp) return false;
     Stack *stack = create_stack();
     if (!stack) return false;
+    char stack_top = 0;
 
-    for (int i = 0; exp[i] != '\0'; i++) {
+    for (size_t i = 0; exp[i] != '\0'; i++) {
         if (exp[i] == '(' || exp[i] == '[' || exp[i] == '{') {
             push_stack(&exp[i], stack);
         } else if (exp[i] == ')' || exp[i] == ']' || exp[i] == '}') {
-            if (isempty_stack(stack)) {
-                free_stack(stack);
-                return false;
-            }
-            char stack_top = *(char *)peek_stack(stack);
-            if ((stack_top == '(' && exp[i] != ')') ||
+            if (isempty_stack(stack)) goto fail;
+            if (((stack_top = *(char *)peek_stack(stack)) == '(' && exp[i] != ')') ||
                 (stack_top == '[' && exp[i] != ']') ||
-                (stack_top == '{' && exp[i] != '}')) {
-                free_stack(stack);
-                return false;
-            }
+                (stack_top == '{' && exp[i] != '}')) goto fail;
             pop_stack(stack);
         }
     }
 
-    bool empty = isempty_stack(stack);
+    bool valid = isempty_stack(stack);
     free_stack(stack);
-    return empty ? true : false;
+    return valid;
+
+fail:
+    free_stack(stack);
+    return false;
 }
 
 void queue_array() {

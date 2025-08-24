@@ -66,8 +66,7 @@ void free_queue(Queue *queue) {
     queue->front = 0;
     queue->rear = -1;
     free(queue);
-    queue = NULL;
 }
 
 void *peek_queue(Queue *queue) { return queue && queue->front <= queue->rear ? queue->array[queue->front] : NULL; }
-bool isempty_queue(Queue *queue) { return queue && queue->front <= queue->rear ? false : true; }
+bool isempty_queue(Queue *queue) { return !queue || queue->front > queue->rear; }

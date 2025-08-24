@@ -55,16 +55,9 @@ bool pop_vector(Vector *vector) {
 
 bool insert_vector(Vector *vector, void *data, size_t index) {
     if (!vector || index > vector->length || !realloc_vector(vector)) return false;
-    void *temp = NULL;
-    void *prev = vector->array[index];
+    for (size_t i = vector->length; i > index; i--) vector->array[i] = vector->array[i - 1];
     vector->array[index] = data;
     vector->length++;
-
-    for (size_t i = index + 1; i < vector->length; i++) {
-        temp = vector->array[i];
-        vector->array[i] = prev;
-        prev = temp;
-    }
     return true;
 }
 
@@ -76,7 +69,7 @@ bool remove_vector(Vector *vector, size_t index) {
     return true;
 }
 
-bool isempty_vector(Vector *vector) { return vector && vector->length ? false : true; }
+bool isempty_vector(Vector *vector) { return !vector || vector->length == 0; }
 
 bool clear_vector(Vector *vector) {
     if (!vector || !vector->array) return false;
@@ -93,5 +86,4 @@ void free_vector(Vector *vector) {
     vector->length = 0;
     vector->capacity = 0;
     free(vector);
-    vector = NULL;
 }
